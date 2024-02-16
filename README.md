@@ -1,2 +1,3 @@
-# PresentationZen
-Swift package for dyerlab visualization of tables and figures in swift
+# Presentation Zen
+
+A swift package for [dyerlab](https://dyerlab.org) visualization of tables and figures in swift.  
