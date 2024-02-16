@@ -9,21 +9,16 @@ import Charts
 import SwiftUI
 
 struct ScatterPlotWithTrendline: View {
-    var data: [PointData]
+    var data: [DataPoint]
     var xLabel: String
     var yLabel: String
     var lineSlope: Double
     var lineInterscept: Double
     var lineColor: Color = .red
     
-    var xrange: (Double,Double) {
-        let vals: [Double] = data.compactMap( { $0.xValue }).sorted()
-        return (vals[0], vals[(vals.count-1)])
-    }
-    
-    var yrange: (Double, Double) {
-        let vals: [Double] = data.compactMap( { $0.yValue }).sorted()
-        return (vals[0], vals[(vals.count-1)])
+    var trendlinePoints: [DataPoint] {
+        return data.trendlinePoints( intercept: lineInterscept,
+                                     slope: lineSlope )
     }
     
     
@@ -31,15 +26,24 @@ struct ScatterPlotWithTrendline: View {
     var body: some View {
         Chart {
             
+            // The trendline points
+            ForEach( trendlinePoints ) {
+                LineMark(
+                    x: .value("X Axis", $0.xValue),
+                    y: .value("Y Axis", $0.yValue)
+                )
+                .foregroundStyle( lineColor )
+                .lineStyle( .init(dash: [5.0, 3.0 ]))
+                
+            }
+            
+            // The raw data
             ForEach( data ) {
                 PointMark(
                     x: .value("X Axis", $0.xValue ),
                     y: .value("Y Axis", $0.yValue )
                 )
             }
-            
-            //RuleMark(a)
-            
         }
         .chartXAxisLabel(position: .bottom,
                          alignment: .center,
@@ -55,12 +59,19 @@ struct ScatterPlotWithTrendline: View {
         } )
         
     }
+    
+    
+    
+    
 }
 
 #Preview {
-    ScatterPlotWithTrendline( data: PointData.defaultPointData,
+    
+    ScatterPlotWithTrendline( data: DataPoint.defaultDataPoints,
                               xLabel: "Default X-Axis Label",
                               yLabel: "Default Y-Axis Label",
-                              lineSlope: 4.5,
-                              lineInterscept: 0.0 )
+                              lineSlope: 0.75,
+                              lineInterscept: 12.5 )
+    .padding()
+    
 }
