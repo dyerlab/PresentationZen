@@ -25,7 +25,6 @@ struct ScatterPlotWithTrendline: View {
     
     var body: some View {
         Chart {
-            
             // The trendline points
             ForEach( trendlinePoints ) {
                 LineMark(
@@ -34,9 +33,7 @@ struct ScatterPlotWithTrendline: View {
                 )
                 .foregroundStyle( lineColor )
                 .lineStyle( .init(dash: [5.0, 3.0 ]))
-                
             }
-            
             // The raw data
             ForEach( data ) {
                 PointMark(
@@ -50,19 +47,14 @@ struct ScatterPlotWithTrendline: View {
                          content: {
             Text(xLabel)
                 .font(.title3)
-        } )
+        })
         .chartYAxisLabel(position: .trailing,
                          alignment: .center,
                          content: {
             Text(yLabel)
                 .font(.title3)
-        } )
-        
+        })
     }
-    
-    
-    
-    
 }
 
 #Preview {
