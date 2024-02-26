@@ -24,14 +24,14 @@ struct BarPlot: View {
                                 y: .value("Value",      item.yValue ) )
                         .foregroundStyle(by: .value("Group", item.grouping ) )
                         .annotation {
-                            Text("\(item.label )")
+                            Text("\(item.label)")
                                 .font( .footnote )
                         }
                     } else {
                         BarMark(x: .value("Category",   item.category ),
                                 y: .value("Value",      item.yValue ) )
                         .annotation {
-                            Text("\(item.label )")
+                            Text("\(item.label)")
                                 .font( .footnote )
                         }
                     }
@@ -63,16 +63,12 @@ struct BarPlot: View {
     
     
     var body: some View {
-        
         if self.showGroups {
             self.chart
                 .chartLegend(position: .top)
         } else {
             self.chart
         }
-        
-
-
     }
 }
 

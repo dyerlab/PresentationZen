@@ -21,8 +21,6 @@ struct ScatterPlotWithTrendline: View {
                                      slope: lineSlope )
     }
     
-    
-    
     var body: some View {
         Chart {
             // The trendline points
