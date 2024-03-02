@@ -36,8 +36,8 @@ public struct KeyValueTable: View {
             LazyVGrid( columns: self.columns, content: {
                 ForEach( 0..<columnTypes.count, id: \.self ) { idx in
                     Text("\(columnHeaders[idx])")
-                        .foregroundStyle( .selection )
-                        .multilineTextAlignment( .center )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.headline)
                 }
                 ForEach( data ) { item in
                     ForEach( columnTypes, id: \.self ) { type in
@@ -45,19 +45,19 @@ public struct KeyValueTable: View {
                         switch( type ) {
                         case .grouping:
                             Text("\(item.grouping)")
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         case .label:
                             Text("\(item.label)")
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         case .category:
                             Text("\(item.category)")
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         case .xValue:
                             Text("\(item.xValue, specifier: "%.4f")")
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         case .yValue:
                             Text("\(item.yValue, specifier: "%.4f")")
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
