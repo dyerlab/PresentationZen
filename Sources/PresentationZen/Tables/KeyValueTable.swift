@@ -46,18 +46,23 @@ public struct KeyValueTable: View {
                         case .grouping:
                             Text("\(item.grouping)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
                         case .label:
                             Text("\(item.label)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
                         case .category:
                             Text("\(item.category)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
                         case .xValue:
                             Text("\(item.xValue, specifier: "%.4f")")
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
                         case .yValue:
                             Text("\(item.yValue, specifier: "%.4f")")
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
                         }
                     }
                 }
