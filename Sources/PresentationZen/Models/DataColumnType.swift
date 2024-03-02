@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataColumnType: String  {
+public enum DataColumnType: String  {
     case label = "Label"
     case category = "Category"
     case grouping = "Grouping"

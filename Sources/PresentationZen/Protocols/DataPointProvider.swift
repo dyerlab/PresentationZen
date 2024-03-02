@@ -11,7 +11,7 @@ import Foundation
 /**
  Protocol indicating that the object produces data types of some sort.
  */
-protocol DataPointProvider {
+public protocol DataPointProvider {
     
     /// Sole variable 
     var dataPoints: [DataPoint] { get }

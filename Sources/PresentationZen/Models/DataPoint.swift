@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct DataPoint: Identifiable, Hashable {
-    let id = UUID()
-    let label: String
-    let category: String
-    let grouping: String
-    var xValue: Double
-    var yValue: Double
+public struct DataPoint: Identifiable, Hashable {
+    public let id = UUID()
+    public let label: String
+    public let category: String
+    public let grouping: String
+    public var xValue: Double
+    public var yValue: Double
     
     /// Default x,y point initializer
     init(x: Double, y: Double, label: String = "", group: String = "", category: String = "") {
