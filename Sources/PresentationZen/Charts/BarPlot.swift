@@ -8,14 +8,26 @@
 import Charts
 import SwiftUI
 
-struct BarPlot: View {
-    var data: [DataPoint]
-    var xLabel: String = "Categories"
-    var yLabel: String = "Value"
-    var showLabel: Bool = false
-    var showGroups: Bool = false
+public struct BarPlot: View {
+    public var data: [DataPoint]
+    public var xLabel: String
+    public var yLabel: String
+    public var showLabel: Bool
+    public var showGroups: Bool
     
-    var chart: some View {
+    public init(data: [DataPoint], 
+                xLabel: String = "Categories", yLabel: String = "Value",
+                showLabel: Bool = false,
+                showGroups: Bool = false) {
+        self.data = data
+        self.xLabel = xLabel
+        self.yLabel = yLabel
+        self.showLabel = showLabel
+        self.showGroups = showGroups
+    }
+    
+    
+    public var chart: some View {
         Chart {
             ForEach( data, id: \.self) { item in
                 if showLabel {
@@ -62,7 +74,7 @@ struct BarPlot: View {
     }
     
     
-    var body: some View {
+    public var body: some View {
         if self.showGroups {
             self.chart
                 .chartLegend(position: .top)

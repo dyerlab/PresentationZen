@@ -8,11 +8,16 @@
 import SwiftUI
 import Charts
 
-struct PiePlot: View {
-    var data: [DataPoint]
-    var title: String = ""
+public struct PiePlot: View {
+    public var data: [DataPoint]
+    public var title: String
     
-    var body: some View {
+    public init(data: [DataPoint], title: String = "" ) {
+        self.data = data
+        self.title = title
+    }
+    
+    public var body: some View {
         ZStack {
         Chart( data) { datum in
             

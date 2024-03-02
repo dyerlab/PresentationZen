@@ -8,20 +8,30 @@
 import Charts
 import SwiftUI
 
-struct ScatterPlotWithTrendline: View {
-    var data: [DataPoint]
-    var xLabel: String
-    var yLabel: String
-    var lineSlope: Double
-    var lineInterscept: Double
-    var lineColor: Color = .red
+public struct ScatterPlotWithTrendline: View {
+    public var data: [DataPoint]
+    public var xLabel: String
+    public var yLabel: String
+    public var lineSlope: Double
+    public var lineInterscept: Double
+    public var lineColor: Color
     
     var trendlinePoints: [DataPoint] {
         return data.trendlinePoints( intercept: lineInterscept,
                                      slope: lineSlope )
     }
     
-    var body: some View {
+    public init(data: [DataPoint], xLabel: String, yLabel: String, lineSlope: Double, lineInterscept: Double, lineColor: Color = .red) {
+        self.data = data
+        self.xLabel = xLabel
+        self.yLabel = yLabel
+        self.lineSlope = lineSlope
+        self.lineInterscept = lineInterscept
+        self.lineColor = lineColor
+    }
+    
+    
+    public var body: some View {
         Chart {
             // The trendline points
             ForEach( trendlinePoints ) {

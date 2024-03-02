@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Array where Element == DataPoint {
+public extension Array where Element == DataPoint {
     
 
     /// Minimum values

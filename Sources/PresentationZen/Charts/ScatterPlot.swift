@@ -8,14 +8,22 @@
 import Charts
 import SwiftUI
 
-struct ScatterPlot: View {
-    var data: [DataPoint]
-    var xLabel: String
-    var yLabel: String
-    var showLabel: Bool = false
-    var showGroups: Bool = false
+public struct ScatterPlot: View {
+    public var data: [DataPoint]
+    public var xLabel: String
+    public var yLabel: String
+    public var showLabel: Bool
+    public var showGroups: Bool
     
-    var body: some View {
+    public init(data: [DataPoint], xLabel: String, yLabel: String, showLabel: Bool = false , showGroups: Bool = false ) {
+        self.data = data
+        self.xLabel = xLabel
+        self.yLabel = yLabel
+        self.showLabel = showLabel
+        self.showGroups = showGroups
+    }
+    
+    public var body: some View {
         Chart {
             ForEach( data, id: \.self) { item in
                 if showLabel {

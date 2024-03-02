@@ -45,14 +45,19 @@ public struct KeyValueTable: View {
                         switch( type ) {
                         case .grouping:
                             Text("\(item.grouping)")
+                                .frame(maxWidth: .infinity, alignment: .center)
                         case .label:
                             Text("\(item.label)")
+                                .frame(maxWidth: .infinity, alignment: .center)
                         case .category:
                             Text("\(item.category)")
+                                .frame(maxWidth: .infinity, alignment: .center)
                         case .xValue:
-                            Text("\(item.xValue)")
+                            Text("\(item.xValue, specifier: "%.4f")")
+                                .frame(maxWidth: .infinity, alignment: .center)
                         case .yValue:
-                            Text("\(item.yValue)")
+                            Text("\(item.yValue, specifier: "%.4f")")
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
                     }
                 }
