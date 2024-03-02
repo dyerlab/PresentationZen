@@ -15,6 +15,11 @@ public struct KeyValueTable: View {
                                     "X Value",
                                     "Y Value" ]
     
+    public init(data: [DataPoint], columnTypes: [DataColumnType], columnHeaders: [String]) {
+        self.data = data
+        self.columnTypes = columnTypes
+        self.columnHeaders = columnHeaders
+    }
     
     var columns: [GridItem] {
         var ret = [GridItem]()
