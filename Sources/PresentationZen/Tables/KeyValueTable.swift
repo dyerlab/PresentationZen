@@ -14,11 +14,15 @@ public struct KeyValueTable: View {
                                     "Label",
                                     "X Value",
                                     "Y Value" ]
+    public var formatString: String
     
-    public init(data: [DataPoint], columnTypes: [DataColumnType], columnHeaders: [String]) {
+    public init( data: [DataPoint],
+                 columnTypes: [DataColumnType], columnHeaders: [String],
+                 formatString: String = "%.4f" ) {
         self.data = data
         self.columnTypes = columnTypes
         self.columnHeaders = columnHeaders
+        self.formatString = formatString
     }
     
     var columns: [GridItem] {
@@ -56,11 +60,11 @@ public struct KeyValueTable: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                         case .xValue:
-                            Text("\(item.xValue, specifier: "%.4f")")
+                            Text("\(item.xValue, specifier: formatString)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                         case .yValue:
-                            Text("\(item.yValue, specifier: "%.4f")")
+                            Text("\(item.yValue, specifier: formatString)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
                         }
