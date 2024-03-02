@@ -16,7 +16,7 @@ public struct DataPoint: Identifiable, Hashable {
     public var yValue: Double
     
     /// Default x,y point initializer
-    init(x: Double, y: Double, label: String = "", group: String = "", category: String = "") {
+    public init(x: Double, y: Double, label: String = "", group: String = "", category: String = "") {
         self.xValue = x
         self.yValue = y
         self.label = label
@@ -25,7 +25,7 @@ public struct DataPoint: Identifiable, Hashable {
     }
     
     /// Default category,y initializer
-    init( category: String, value: Double, label: String = "", group: String = "") {
+    public init( category: String, value: Double, label: String = "", group: String = "") {
         self.category = category
         self.yValue = value
         self.label = label
@@ -40,7 +40,7 @@ public struct DataPoint: Identifiable, Hashable {
 
 extension DataPoint {
     
-    static var defaultDataPoints: [DataPoint] {
+    public static var defaultDataPoints: [DataPoint] {
         var ret = [DataPoint]()
         for i in 0 ..< 10 {
             ret.append( DataPoint( x: Double.random(in: 0.0...100.0),
