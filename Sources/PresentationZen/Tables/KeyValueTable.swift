@@ -6,10 +6,10 @@
 //
 import SwiftUI
 
-struct KeyValueTable: View {
-    var data: [DataPoint]
-    var columnTypes: [DataColumnType]
-    var columnHeaders: [String] = [ "Category Label",
+public struct KeyValueTable: View {
+    public var data: [DataPoint]
+    public var columnTypes: [DataColumnType]
+    public var columnHeaders: [String] = [ "Category Label",
                                     "Grouping Label",
                                     "Label",
                                     "X Value",
@@ -24,7 +24,7 @@ struct KeyValueTable: View {
         return ret
     }
     
-    var body: some View {
+    public var body: some View {
         
         
         ScrollView( [.horizontal, .vertical]) {
