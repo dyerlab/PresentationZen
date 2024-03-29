@@ -6,30 +6,47 @@
 //
 
 import XCTest
+@testable import PresentationZen
 
+/*
 final class DataPointTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testArray() throws {
+        
+        let data = [ DataPoint(x: 1.0, y: 1.2, category: "Bob"),
+                     DataPoint(x: 2.0, y: 1.2, category: "Alice"),
+                     DataPoint(x: 2.1, y: 1.2, category: "Alice"),
+                     DataPoint(x: 2.2, y: 1.2, category: "Bob"),
+                     DataPoint(x: 3.0, y: 1.2, category: "Alice"),
+                     DataPoint(x: 4.0, y: 1.2, category: "Bob"),
+                     DataPoint(x: 4.0, y: 1.2, category: "Bob"),
+                     DataPoint(x: 4.1, y: 1.2, category: "Bob") ]
+        
+        XCTAssertEqual( data.count, 8)
+        print("Raw Data ")
+        for datum in data {
+            print("\(datum)")
         }
+        
+        print("HISTOGRAM with 1.0 bin")
+        let hist = data.histogram(binSize: 1.0)
+        XCTAssertEqual( hist.count, 5)
+        for datum in hist {
+            print("\(datum)")
+        }
+
+        
+        print("HISTOGRAM with 0.1 bin")
+        let hist2 = data.histogram(binSize: 0.1 )
+        XCTAssertEqual( hist2.count, 7)
+        for datum in hist2 {
+            print("\(datum)")
+        }
+
+        
     }
+
 
 }
+*/

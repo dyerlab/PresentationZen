@@ -71,4 +71,43 @@ public extension Array where Element == DataPoint {
     }
 
     
+    /// Convert raw data to vector for histogram
+    ///
+    /// This takes a raw set of data and returns a new set where the y-value is the c
+    ///   count of observations in the binned values of the x-axis data.
+    ///
+    ///  - Parameters:
+    ///     - binSize: The size of the bin as a ``Double``
+    ///  - Returns: A new set of data with counts as each bin.
+    func histogram( binSize: Double = 0.01 ) -> [DataPoint] {
+        var ret = [DataPoint]()
+        
+        for value in self {
+            let xBin = round( value.xValue / binSize ) * binSize
+
+            /// One already exists with same category
+            if let idx = ret.firstIndex(where: { $0.xValue == xBin && $0.category == value.category } ) {
+                ret[idx].yValue = ret[idx].yValue + 1.0
+            } else {
+                ret.append( DataPoint(x: xBin, y: 1.0, category: value.category))
+            }
+        }
+        
+        
+        return ret.sorted { $0.xValue < $1.xValue && $0.category < $1.category }
+    }
+    
+    
+    /// Convert raw data to counts of points in bins
+    ///
+    /// This takes the raw data and partitions it into bins on the x-value and then changes the y-value
+    ///   to the count so that they can be plot as a stack of balls.
+    ///
+    /// - Parameters:
+    ///     - minSize: A ``Double`` indicating the width of the bins.
+    ///     - xMin: The minimum value on the x-axis (where to start) as a ``Double``
+    
+    
+    
+    
 }
