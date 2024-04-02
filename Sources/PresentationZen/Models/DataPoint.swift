@@ -45,11 +45,14 @@ extension DataPoint {
     public static var defaultDataPoints: [DataPoint] {
         var ret = [DataPoint]()
         for i in 0 ..< 10 {
-            ret.append( DataPoint( x: Double.random(in: 0.0...100.0),
-                                   y: Double.random(in: 0.0...100.0),
-                                   label: String("Label \(i+1)"),
-                                   group: String("Group \( (i % 3) + 1)"),
-                                   category: String("Category \( (i % 2)+1)") ) )
+            var pt = DataPoint( x: Double.random(in: 0.0...100.0),
+                                y: Double.random(in: 0.0...100.0),
+                                label: String("Label \(i+1)"),
+                                group: String("Group \( (i % 3) + 1)"),
+                                category: String("Category \( (i % 2)+1)") )
+            let time = Double(i) * -86400.0
+            pt.date = Date.now.addingTimeInterval( time )
+            ret.append( pt )
         }
         return ret
     }
