@@ -13,6 +13,7 @@ import Foundation
  */
 public protocol DataPointProvider {
     
-    /// Sole variable 
+    /// Sole variable required to be a DataPointProvider
     var dataPoints: [DataPoint] { get }
+    
 }

@@ -14,6 +14,7 @@ public struct DataPoint: Identifiable, Hashable {
     public let grouping: String
     public var xValue: Double
     public var yValue: Double
+    public var date: Date?
     
     /// Default x,y point initializer
     public init(x: Double, y: Double, label: String = "", group: String = "", category: String = "") {
@@ -25,12 +26,13 @@ public struct DataPoint: Identifiable, Hashable {
     }
     
     /// Default category,y initializer
-    public init( category: String, value: Double, label: String = "", group: String = "") {
+    public init( category: String, value: Double, label: String = "", group: String = "", date: Date? = nil ) {
         self.category = category
         self.yValue = value
         self.label = label
         self.grouping = group
         self.xValue = Double.nan
+        self.date = date
     }
     
 }
