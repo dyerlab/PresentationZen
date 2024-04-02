@@ -53,6 +53,7 @@ extension DataPoint {
             let time = Double(i) * -86400.0
             pt.date = Date.now.addingTimeInterval( time )
             ret.append( pt )
+            
         }
         return ret
     }
