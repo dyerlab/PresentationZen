@@ -42,7 +42,7 @@ public struct PiePlot: View {
             Text("\(title)")
                 .font(.title2)
         }
-    }
+    }x
 }
 
 #Preview {
