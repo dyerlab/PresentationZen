@@ -8,13 +8,13 @@
 import Charts
 import SwiftUI
 
-struct BoxPlot: View {
+public struct BoxPlot: View {
     
     var boxes: [BoxPlotPoint]
     var xLabel: String
     var yLabel: String
     
-    init( data: [DataPoint], xLabel: String, yLabel: String ) {
+    public init( data: [DataPoint], xLabel: String, yLabel: String ) {
         self.xLabel = xLabel
         self.yLabel = yLabel
         
@@ -29,7 +29,7 @@ struct BoxPlot: View {
     }
     
     
-    var body: some View {
+    public var body: some View {
         Chart {
             ForEach( boxes ) { item in
                 
