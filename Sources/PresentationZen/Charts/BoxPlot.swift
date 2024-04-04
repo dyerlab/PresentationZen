@@ -13,8 +13,9 @@ public struct BoxPlot: View {
     var boxes: [BoxPlotPoint]
     var xLabel: String
     var yLabel: String
+    var medianHeight: Double
     
-    public init( data: [DataPoint], xLabel: String, yLabel: String ) {
+    public init( data: [DataPoint], xLabel: String, yLabel: String, medianHeight: Double = 0.5 ) {
         self.xLabel = xLabel
         self.yLabel = yLabel
         
@@ -25,7 +26,7 @@ public struct BoxPlot: View {
         }
         
         self.boxes = theBoxes.sorted(by: { $0.category < $1.category })
-        
+        self.medianHeight = medianHeight
     }
     
     
@@ -53,8 +54,8 @@ public struct BoxPlot: View {
                 // The Median
                 BarMark(
                     x: .value("Category", item.category),
-                    yStart: .value("BoxBottom", (item.median - 0.5) ),
-                    yEnd: .value("BoxBottom", (item.median + 0.5) )
+                    yStart: .value("BoxBottom", (item.median - medianHeight) ),
+                    yEnd: .value("BoxBottom", (item.median + medianHeight) )
                 )
                 .foregroundStyle( Color.secondary.opacity(0.75) )
 
