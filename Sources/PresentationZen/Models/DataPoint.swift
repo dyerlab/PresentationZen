@@ -45,7 +45,7 @@ extension DataPoint {
     public static var defaultDataPoints: [DataPoint] {
         var ret = [DataPoint]()
         for i in 0 ..< 10 {
-            var pt = DataPoint( x: Double.random(in: 0.0...100.0),
+            var pt = DataPoint( x: Double(i),
                                 y: Double.random(in: 0.0...100.0),
                                 label: String("Label \(i+1)"),
                                 group: String("Group \( (i % 3) + 1)"),
