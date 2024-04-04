@@ -8,7 +8,7 @@
 import Charts
 import SwiftUI
 
-struct TimeSeriesPlot: View {
+public struct TimeSeriesPlot: View {
     public var data: [DataPoint]
     public var yLabel: String
     public var ordinal: Bool
@@ -19,7 +19,7 @@ struct TimeSeriesPlot: View {
         self.ordinal = ordinal
     }
     
-    var body: some View {
+    public var body: some View {
         Chart {
             ForEach( data ) { item in
             
