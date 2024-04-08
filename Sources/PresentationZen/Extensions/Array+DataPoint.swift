@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Rodney Dyer on 2024-02-16.
 //
@@ -10,7 +10,7 @@ import Foundation
 
 public extension Array where Element == DataPoint {
     
-
+    
     /// Minimum values
     ///
     /// - Returns: minimum ``DataPoint`` values or ``Double.infinity``
@@ -27,7 +27,7 @@ public extension Array where Element == DataPoint {
         }
         return ret
     }
-
+    
     /// Maximum values
     ///
     /// - Returns: ``DataPoint`` with maximum values in array or ``-Double.infinity``
@@ -69,7 +69,7 @@ public extension Array where Element == DataPoint {
         
         return [pt1, pt2]
     }
-
+    
     
     /// Convert raw data to vector for histogram
     ///
@@ -77,24 +77,38 @@ public extension Array where Element == DataPoint {
     ///   count of observations in the binned values of the x-axis data.
     ///
     ///  - Parameters:
-    ///     - binSize: The size of the bin as a ``Double``
+    ///     - numBins: The number of bins to create.  An additional one will be
     ///  - Returns: A new set of data with counts as each bin.
-    func histogram( binSize: Double = 0.01 ) -> [DataPoint] {
+    func histogram( numBins: Int = 10 ) -> [DataPoint] {
         var ret = [DataPoint]()
         
-        for value in self {
-            let xBin = round( value.xValue / binSize ) * binSize
-
-            /// One already exists with same category
-            if let idx = ret.firstIndex(where: { $0.xValue == xBin && $0.category == value.category } ) {
-                ret[idx].yValue = ret[idx].yValue + 1.0
-            } else {
-                ret.append( DataPoint(x: xBin, y: 1.0, category: value.category))
+        if self.count == 0 {
+            return ret
+        }
+        
+        let values = self.compactMap({ $0.yValue } ).sorted()
+        
+        if let dataMin = values.min(),
+           let dataMax = values.max() {
+            var current = dataMin
+            let span = dataMax - current
+            let binSize = span / Double( numBins )
+            
+            ret.append( DataPoint(x: (current - binSize), y: 0) )
+            
+            while current <= dataMax {
+                let ct = values.filter( { ($0 >= current) && ($0 < current + binSize ) } ).count
+                ret.append( DataPoint( x: current, y: Double( ct ) ) )
+                current += binSize
             }
+            ret.append( DataPoint(x: (dataMax + binSize), y: 0) )
+            
         }
         
         
-        return ret.sorted { $0.xValue < $1.xValue && $0.category < $1.category }
+        
+        
+        return ret
     }
     
     

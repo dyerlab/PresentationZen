@@ -68,5 +68,23 @@ extension DataPoint {
         }
         return ret
     }
-        
+
+    
+    public static var DefaultHistogramDataPoints: [DataPoint] {
+        var ret = [DataPoint]()
+        ret.append( DataPoint(x: 0, y: 0) )
+        ret.append( DataPoint(x: 1, y: 2) )
+        ret.append( DataPoint(x: 2, y: 3) )
+        ret.append( DataPoint(x: 3, y: 8) )
+        ret.append( DataPoint(x: 4, y: 18) )
+        ret.append( DataPoint(x: 5, y: 20) )
+        ret.append( DataPoint(x: 6, y: 22) )
+        ret.append( DataPoint(x: 7, y: 17) )
+        ret.append( DataPoint(x: 8, y: 6) )
+        ret.append( DataPoint(x: 9, y: 4) )
+        ret.append( DataPoint(x: 10, y: 2) )
+        ret.append( DataPoint(x: 11, y: 0) )
+        return ret
+    }
+    
 }

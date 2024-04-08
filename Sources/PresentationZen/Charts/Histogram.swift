@@ -16,23 +16,27 @@ struct Histogram: View {
     var data: [DataPoint]
     var binSize: Double = 1.0
     
-    var points: [DataPoint]  {
-        return data.histogram(binSize: binSize).sorted { $0.xValue < $1.xValue && $0.category < $1.category   }
-    }
+    let curGradient = LinearGradient(
+            gradient: Gradient (
+                colors: [
+                    Color(.blue).opacity(0.9),
+                    Color(.blue).opacity(0.5)
+                ]
+            ),
+            startPoint: .top,
+            endPoint: .bottom
+        )
     
     var body: some View {
         Chart {
-
-            ForEach( points ) { item in
-                
-                BarMark(
-                    x: .value("X-value", String("\(item.xValue)") ),
+            ForEach( data ) { item in
+                AreaMark(
+                    x: .value("X-value", item.xValue ),
                     y: .value("Y-End", item.yValue)
                 )
-                .foregroundStyle(by: .value("Categroy", item.category))
-                
+                .interpolationMethod(.catmullRom)
+                .foregroundStyle(curGradient)
             }
-            
         }
         .chartXAxisLabel(position: .bottom,
                          alignment: .center,
@@ -46,7 +50,14 @@ struct Histogram: View {
             Text(yLabel)
                 .font(.title3)
         } )
-        .chartLegend(position: .top)
+        .chartForegroundStyleScale(
+                    range: Gradient (
+                        colors: [
+                            .purple,
+                            .blue.opacity(0.3)
+                        ]
+                    )
+                )
 
     }
 }
@@ -54,6 +65,6 @@ struct Histogram: View {
 #Preview {
     Histogram( xLabel: "Raw Data",
                yLabel: "Counts",
-               data: DataPoint.defaultDataPoints,
+               data: DataPoint.DefaultHistogramDataPoints,
                binSize: 20.0 )
 }
