@@ -35,6 +35,16 @@ public struct DataPoint: Identifiable, Hashable {
         self.date = date
     }
     
+    /// Default temporal initializer
+    public init( time: Date, value: Double, xValue: Double = Double.nan, category: String = "", group: String = "", label: String = "") {
+        self.category = category
+        self.yValue = value
+        self.label = label
+        self.grouping = group
+        self.xValue = xValue
+        self.date = time
+    }
+    
 }
 
 
