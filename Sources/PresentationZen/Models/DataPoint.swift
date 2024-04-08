@@ -36,6 +36,7 @@ public struct DataPoint: Identifiable, Hashable {
     }
     
     /// Default temporal initializer
+    /// You can set the xValue to numeric for ordinal display.
     public init( time: Date, value: Double, xValue: Double = Double.nan, category: String = "", group: String = "", label: String = "") {
         self.category = category
         self.yValue = value
