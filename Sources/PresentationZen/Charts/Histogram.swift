@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 import SwiftData
 
+
 public struct Histogram: View {
     public var xLabel: String = "Values"
     public var yLabel: String = "Count"
