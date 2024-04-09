@@ -9,7 +9,7 @@ import Charts
 import SwiftUI
 import SwiftData
 
-
+/// This adds a public init on the sturctur.
 public struct Histogram: View {
     public var xLabel: String = "Values"
     public var yLabel: String = "Count"
