@@ -26,6 +26,12 @@ public struct Histogram: View {
             endPoint: .bottom
         )
     
+    public init(xLabel: String, yLabel: String, data: [DataPoint]) {
+        self.xLabel = xLabel
+        self.yLabel = yLabel
+        self.data = data
+    }
+    
     public var body: some View {
         Chart {
             ForEach( data ) { item in
