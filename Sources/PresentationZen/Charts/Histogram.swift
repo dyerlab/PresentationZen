@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 
 struct Histogram: View {
-    public var xLabel: String
+    public var xLabel: String = "Values"
     public var yLabel: String = "Count"
 
     var data: [DataPoint]
@@ -32,7 +32,7 @@ struct Histogram: View {
             ForEach( data ) { item in
                 AreaMark(
                     x: .value("X-value", item.xValue ),
-                    y: .value("Y-End", item.yValue)
+                    y: .value("Y-value", item.yValue)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(curGradient)
