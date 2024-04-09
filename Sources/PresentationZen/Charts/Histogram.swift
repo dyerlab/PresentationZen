@@ -9,12 +9,10 @@ import Charts
 import SwiftUI
 import SwiftData
 
-struct Histogram: View {
+public struct Histogram: View {
     public var xLabel: String = "Values"
     public var yLabel: String = "Count"
-
-    var data: [DataPoint]
-    var binSize: Double = 1.0
+    public var data: [DataPoint]
     
     let curGradient = LinearGradient(
             gradient: Gradient (
@@ -27,7 +25,7 @@ struct Histogram: View {
             endPoint: .bottom
         )
     
-    var body: some View {
+    public var body: some View {
         Chart {
             ForEach( data ) { item in
                 AreaMark(
@@ -65,6 +63,5 @@ struct Histogram: View {
 #Preview {
     Histogram( xLabel: "Raw Data",
                yLabel: "Counts",
-               data: DataPoint.DefaultHistogramDataPoints,
-               binSize: 20.0 )
+               data: DataPoint.DefaultHistogramDataPoints )
 }
