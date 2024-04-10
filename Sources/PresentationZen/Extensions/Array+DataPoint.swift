@@ -10,6 +10,14 @@ import Foundation
 
 public extension Array where Element == DataPoint {
     
+    var isEmpty: Bool {
+        if self.count == 0 {
+            return true
+        }
+
+        return self.compactMap( { $0.yValue} ).sum() == 0.0
+    }
+    
     
     /// Minimum values
     ///
@@ -44,6 +52,7 @@ public extension Array where Element == DataPoint {
         }
         return ret
     }
+    
     
     
     /// Gets trendline end points for specificed line.
