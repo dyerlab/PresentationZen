@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+
 public struct BoxPlot: View {
     
     var boxes: [BoxPlotPoint]
@@ -66,6 +67,7 @@ public struct BoxPlot: View {
                            content: {
               Text(xLabel)
                   .font(.title3)
+            
           } )
           .chartYAxisLabel(position: .trailing,
                            alignment: .center,
