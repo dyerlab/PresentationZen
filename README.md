@@ -4,3 +4,5 @@
 
 A swift package for [dyerlab](https://dyerlab.org) visualization of tables and figures in swift, used in several applicaitons by [dyerlab.com](https://dyerlab.com).
 
+Current Version: "1.0.9"
+
