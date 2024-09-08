@@ -62,9 +62,9 @@ public struct BoxPlot: View {
 
             }
         } 
-        .chartXAxisLabel(position: .bottom,
-                           alignment: .center,
-                           content: {
+        .chartXAxisLabel( position: .bottom,
+                          alignment: .center,
+                          content: {
               Text(xLabel)
                   .font(.title3)
             

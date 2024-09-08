@@ -49,6 +49,19 @@ public struct DataPoint: Identifiable, Hashable {
 }
 
 
+extension DataPoint: Comparable {
+    
+    public static func < (lhs: DataPoint, rhs: DataPoint) -> Bool {
+        
+        if let ldate = lhs.date, let rdate = rhs.date {
+            return ldate < rdate
+        } else {
+            return lhs.xValue < rhs.xValue
+        }
+        
+        
+    }
+}
 
 
 extension DataPoint {

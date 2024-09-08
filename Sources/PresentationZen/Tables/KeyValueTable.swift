@@ -72,22 +72,6 @@ public struct KeyValueTable: View {
                 }
             })
         }
-        
-        /*
-        Table(data) {
-            TableColumn( "Grouping", value: \.grouping)
-            TableColumn( "Label", value: \.label)
-            TableColumn( "Category", value: \.category)
-            TableColumn( "X" ) { item in
-                Text("\(item.xValue)")
-            }
-            TableColumn( "Y" ) { item in
-                Text("\(item.yValue)")
-            }
-        }
-        .cornerRadius(4.0)
-         
-        */
     }
     
 }
