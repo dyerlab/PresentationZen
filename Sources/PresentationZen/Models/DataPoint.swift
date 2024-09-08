@@ -10,8 +10,8 @@ import Foundation
 public struct DataPoint: Identifiable, Hashable {
     public let id = UUID()
     public let label: String
-    public let category: String
-    public let grouping: String
+    public var category: String
+    public var grouping: String
     public var xValue: Double
     public var yValue: Double
     public var date: Date?
@@ -74,7 +74,7 @@ extension DataPoint {
                                 label: String("Label \(i+1)"),
                                 group: String("Group \( (i % 3) + 1)"),
                                 category: String("Category \( (i % 2)+1)") )
-            let time = Double(i) * -86400.0
+            let time = Double(i) * Double.random(in: -86400.0 ... 0.0)
             pt.date = Date.now.addingTimeInterval( time )
             ret.append( pt )
             
@@ -82,6 +82,23 @@ extension DataPoint {
         return ret
     }
 
+    
+    public static var defaultDataPointsNoMetaData: [DataPoint] {
+        var ret = [DataPoint]()
+        for i in 0 ..< 10 {
+            var pt = DataPoint( x: Double(i),
+                                y: Double.random(in: 0.0...100.0),
+                                label: String("Label \(i+1)"),
+                                group: "",
+                                category: "" )
+            let time = Double(i) * Double.random(in: -86400.0 ... 0.0)
+            pt.date = Date.now.addingTimeInterval( time )
+            ret.append( pt )
+
+        }
+        return ret
+    }
+    
     
     public static var DefaultHistogramDataPoints: [DataPoint] {
         var ret = [DataPoint]()

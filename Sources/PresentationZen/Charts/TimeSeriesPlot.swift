@@ -12,11 +12,29 @@ public struct TimeSeriesPlot: View {
     public var data: [DataPoint]
     public var yLabel: String
     public var ordinal: Bool
+    public var xLabel: String
+    public var legendVisibility: Visibility {
+        let categories = Set<String>( data.compactMap({ $0.category } ) )
+        if categories.count < 2 {
+            return .hidden
+        } else {
+            return .automatic
+        }
+    }
     
-    public init(data: [DataPoint], yLabel: String, ordinal: Bool = false ) {
+    
+    
+    public init(data: [DataPoint], yLabel: String, xLabel: String = "", ordinal: Bool = false ) {
         self.data = data
         self.yLabel = yLabel
         self.ordinal = ordinal
+        
+        if xLabel.isEmpty {
+            self.xLabel = self.ordinal == true ? "Ordinal" : "Time"
+        } else {
+            self.xLabel = xLabel
+        }
+            
     }
     
     public var body: some View {
@@ -57,10 +75,11 @@ public struct TimeSeriesPlot: View {
             }
             
         }
+        .chartLegend( self.legendVisibility )
         .chartXAxisLabel(position: .bottom,
                          alignment: .center,
                          content: {
-            Text("\(self.ordinal == true ? "Ordinal" : "Time")")
+            Text("\(xLabel)")
                 .font(.headline)
         } )
         .chartYAxisLabel(position: .trailing,
@@ -74,14 +93,23 @@ public struct TimeSeriesPlot: View {
     }
 }
 
-#Preview {
-    List {
+#Preview("Date") {
         TimeSeriesPlot(data: DataPoint.defaultDataPoints,
                        yLabel: "Y-Axis Data" )
-        
-        TimeSeriesPlot(data: DataPoint.defaultDataPoints,
-                       yLabel: "Y-Axis Data",
-                       ordinal: true )
-    }
+        .padding()
+}
 
+#Preview("Ordinal"){
+    TimeSeriesPlot(data: DataPoint.defaultDataPoints,
+                   yLabel: "Y-Axis Data",
+                   ordinal: true )
+    .padding()
+}
+
+
+#Preview("No Categories") {
+    TimeSeriesPlot(data: DataPoint.defaultDataPointsNoMetaData,
+                   yLabel: "Y-Axis Data",
+                   ordinal: true )
+    .padding()
 }
