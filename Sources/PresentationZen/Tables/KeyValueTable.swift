@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Rodney Dyer on 2/10/24.
 //
@@ -10,14 +10,16 @@ public struct KeyValueTable: View {
     public var data: [DataPoint]
     public var columnTypes: [DataColumnType]
     public var columnHeaders: [String] = [ "Category Label",
-                                    "Grouping Label",
-                                    "Label",
-                                    "X Value",
-                                    "Y Value" ]
+                                           "Grouping Label",
+                                           "Label",
+                                           "X Value",
+                                           "Y Value",
+                                           "Date" ]
     public var formatString: String
     
     public init( data: [DataPoint],
-                 columnTypes: [DataColumnType], columnHeaders: [String],
+                 columnTypes: [DataColumnType],
+                 columnHeaders: [String],
                  formatString: String = "%.4f" ) {
         self.data = data
         self.columnTypes = columnTypes
@@ -44,8 +46,8 @@ public struct KeyValueTable: View {
                         .font(.headline)
                 }
                 ForEach( data ) { item in
-                    ForEach( columnTypes, id: \.self ) { type in
-
+                    ForEach( columnTypes, id: \.self  ) { type in
+                        
                         switch( type ) {
                         case .grouping:
                             Text("\(item.grouping)")
@@ -67,6 +69,11 @@ public struct KeyValueTable: View {
                             Text("\(item.yValue, specifier: formatString)")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
+                        case .date:
+                            Text(item.date ?? .now, style: .date )
+                                .frame(minWidth: 150, maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(1)
+                                
                         }
                     }
                 }
@@ -82,11 +89,15 @@ public struct KeyValueTable: View {
         KeyValueTable( data: DataPoint.defaultDataPoints,
                        columnTypes: [.grouping, .label, .category, .xValue, .yValue],
                        columnHeaders: ["Grouping Label","Label","Category Label","X Value","Y Value"] )
-
+        
         
         KeyValueTable( data: DataPoint.defaultDataPoints,
                        columnTypes: [ .label, .xValue, .grouping,  .yValue],
                        columnHeaders: ["Label","X","Grouping","Y Value"] )
+        
+        KeyValueTable( data: DataPoint.defaultDataPoints,
+                       columnTypes: [.date, .xValue],
+                       columnHeaders: ["Date", "X Value"] )
         
     }
     .padding()

@@ -13,4 +13,5 @@ public enum DataColumnType: String  {
     case grouping = "Grouping"
     case xValue = "X"
     case yValue = "Y"
+    case date = "Date"
 }
