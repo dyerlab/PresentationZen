@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Array where Element == Double {
+public extension Array where Element == Double {
     
     /// Sum of the elements in the aray
     func sum() -> Double {
@@ -37,6 +37,13 @@ extension Array where Element == Double {
         return sqrt(v / (Double(self.count) - 1))
     }
     
-    
+    /// Take double and return dictionary of counts
+    var discretize: [Double: Int] {
+        var ret = [Double: Int]()
+        for value in self {
+            ret[value, default: 0] += 1
+        }
+        return ret
+    }
     
 }

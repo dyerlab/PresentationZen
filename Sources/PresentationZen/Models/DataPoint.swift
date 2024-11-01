@@ -46,6 +46,10 @@ public struct DataPoint: Identifiable, Hashable {
         self.date = time
     }
     
+    public init( likertScore: Int, label: String ) {
+        self.init(x: Double(likertScore), y: Double.nan, label: label)
+    }
+    
 }
 
 

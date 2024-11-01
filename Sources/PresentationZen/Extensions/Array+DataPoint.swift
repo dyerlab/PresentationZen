@@ -114,9 +114,6 @@ public extension Array where Element == DataPoint {
             
         }
         
-        
-        
-        
         return ret
     }
     
