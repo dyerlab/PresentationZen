@@ -14,20 +14,22 @@ public struct TimeSeriesPlot: View {
     public var ordinal: Bool
     public var xLabel: String
     public var legendVisibility: Visibility {
-        let categories = Set<String>( data.compactMap({ $0.category } ) )
-        if categories.count < 2 {
-            return .hidden
-        } else {
-            return .automatic
-        }
+        return categories.count < 2 ? .hidden : .automatic
     }
     
+    public var soloColor: Color
+    public var lineColor: Color
     
+    private var categories: Set<String> {
+        return Set<String>( data.compactMap({ $0.category } ) )
+    }
     
-    public init(data: [DataPoint], yLabel: String, xLabel: String = "", ordinal: Bool = false ) {
+    public init(data: [DataPoint], yLabel: String, xLabel: String = "", ordinal: Bool = false, ptColor: Color = .orange, lineColor: Color = .gray ) {
         self.data = data
         self.yLabel = yLabel
         self.ordinal = ordinal
+        self.soloColor = ptColor
+        self.lineColor = lineColor
         
         if xLabel.isEmpty {
             self.xLabel = self.ordinal == true ? "Ordinal" : "Time"
@@ -46,14 +48,23 @@ public struct TimeSeriesPlot: View {
                         x: .value("X Value", item.xValue ),
                         y: .value(yLabel, item.yValue)
                     )
-                    .foregroundStyle( .gray )
+                    .foregroundStyle( lineColor )
                     .lineStyle( .init(dash: [5.0, 5.0 ]))
                     
-                    PointMark(
-                        x: .value("X Value", item.xValue),
-                        y: .value(yLabel, item.yValue)
-                    )
-                    .foregroundStyle(by: .value("Category", item.category) )
+                    if categories.count < 2 {
+                        PointMark(
+                            x: .value("X Value", item.xValue),
+                            y: .value(yLabel, item.yValue)
+                        )
+                        .foregroundStyle( self.soloColor )
+                    } else {
+                        PointMark(
+                            x: .value("X Value", item.xValue),
+                            y: .value(yLabel, item.yValue)
+                        )
+                        .foregroundStyle(by: .value("Category", item.category) )
+                    }
+                    
                 } else {
                     
                     if item.date != nil {
@@ -61,14 +72,24 @@ public struct TimeSeriesPlot: View {
                             x: .value("X Value", item.date! ),
                             y: .value(yLabel, item.yValue)
                         )
-                        .foregroundStyle( .gray )
+                        .foregroundStyle( lineColor )
                         .lineStyle( .init(dash: [5.0, 5.0 ]))
                         
-                        PointMark(
-                            x: .value("X Value", item.date!),
-                            y: .value(yLabel, item.yValue)
-                        )
-                        .foregroundStyle(by: .value("Category", item.category) )
+                        if categories.count < 2 {
+                            PointMark(
+                                x: .value("X Value", item.date!),
+                                y: .value(yLabel, item.yValue)
+                            )
+                            .foregroundStyle( self.soloColor )
+                        } else {
+                            PointMark(
+                                x: .value("X Value", item.date!),
+                                y: .value(yLabel, item.yValue)
+                            )
+                            .foregroundStyle(by: .value("Category", item.category) )
+
+                        }
+
                     }
                     
                 }

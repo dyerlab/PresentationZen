@@ -31,7 +31,7 @@ public struct DataPoint: Identifiable, Hashable {
         self.yValue = value
         self.label = label
         self.grouping = group
-        self.xValue = Double.nan
+        self.xValue = value
         self.date = date
     }
     

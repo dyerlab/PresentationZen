@@ -6,13 +6,54 @@
 //
 
 import SwiftUI
+import Charts
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+public struct NumberLine: View {
+    var data: [DataPoint]
+    var minX: Double
+    var maxX: Double
+    
+    public init(data: [DataPoint], minX: Double = -1.0, maxX: Double = 1.0) {
+        self.data = data
+        self.minX = (minX * 1.1)
+        self.maxX = (maxX * 1.1)
+    }
+    
+    public var body: some View {
+            Chart( data ) { item in
+                PointMark(
+                    x: .value("Amount", item.yValue),
+                    y: .value("Period", 0.0)
+                )
+                .foregroundStyle(by: .value("Category", item.category))
+            }
+            .chartXAxis(.hidden)
+            .chartYAxis(.hidden)
+            .frame(height: 25)
+            .fixedSize(horizontal: false, vertical: true)
+            .chartXScale(domain: minX...maxX )
+            .chartLegend(.hidden)
     }
 }
 
 #Preview {
-    SwiftUIView()
+    let data = [
+        DataPoint(category: "First",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Second",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Third",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Fourth",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Fifth",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Sixth",
+                  value: Double.random(in: -1.0...1.0)),
+        DataPoint(category: "Seventh",
+                  value: Double.random(in: -1.0...1.0)),
+        
+    ]
+    NumberLine(data: data )
 }

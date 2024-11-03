@@ -16,21 +16,24 @@ public struct KeyValueTable: View {
                                            "Y Value",
                                            "Date" ]
     public var formatString: String
+    public var minColWidth: Double
     
     public init( data: [DataPoint],
                  columnTypes: [DataColumnType],
                  columnHeaders: [String],
-                 formatString: String = "%.4f" ) {
+                 formatString: String = "%.4f",
+                 minColWidth: Double = 150 ) {
         self.data = data
         self.columnTypes = columnTypes
         self.columnHeaders = columnHeaders
         self.formatString = formatString
+        self.minColWidth = minColWidth
     }
     
     var columns: [GridItem] {
         var ret = [GridItem]()
         for _ in 0 ..< columnTypes.count {
-            ret.append( GridItem(.fixed(100) ) )
+            ret.append( GridItem(.flexible(minimum: minColWidth, maximum: .infinity) ) )
         }
         return ret
     }
@@ -73,7 +76,7 @@ public struct KeyValueTable: View {
                             Text(item.date ?? .now, style: .date )
                                 .frame(minWidth: 150, maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(1)
-                                
+                            
                         }
                     }
                 }
@@ -83,23 +86,22 @@ public struct KeyValueTable: View {
     
 }
 
-#Preview {
-    VStack(spacing: 25) {
-        
-        KeyValueTable( data: DataPoint.defaultDataPoints,
-                       columnTypes: [.grouping, .label, .category, .xValue, .yValue],
-                       columnHeaders: ["Grouping Label","Label","Category Label","X Value","Y Value"] )
-        
-        
-        KeyValueTable( data: DataPoint.defaultDataPoints,
-                       columnTypes: [ .label, .xValue, .grouping,  .yValue],
-                       columnHeaders: ["Label","X","Grouping","Y Value"] )
-        
-        KeyValueTable( data: DataPoint.defaultDataPoints,
-                       columnTypes: [.date, .xValue],
-                       columnHeaders: ["Date", "X Value"] )
-        
-    }
-    .padding()
+#Preview("Full") {
+    KeyValueTable( data: DataPoint.defaultDataPoints,
+                   columnTypes: [.grouping, .label, .category, .xValue, .yValue],
+                   columnHeaders: ["Grouping Label","Label","Category Label","X Value","Y Value"] )
 }
 
+#Preview("Second") {
+    KeyValueTable( data: DataPoint.defaultDataPoints,
+                   columnTypes: [ .label, .xValue, .grouping,  .yValue],
+                   columnHeaders: ["Label","X","Grouping","Y Value"] )
+}
+
+
+#Preview("Third") {
+    KeyValueTable( data: DataPoint.defaultDataPoints,
+                   columnTypes: [.date, .xValue],
+                   columnHeaders: ["Date", "X Value"],
+                   minColWidth: 200 )
+}
