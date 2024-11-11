@@ -50,6 +50,10 @@ public struct DataPoint: Identifiable, Hashable {
         self.init(x: Double(likertScore), y: Double.nan, label: label)
     }
     
+    public init( label: String, count: Int ) {
+        self.init(x: Double(count), y: Double.nan, label: label )
+    }
+    
 }
 
 

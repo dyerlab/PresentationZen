@@ -103,5 +103,6 @@ public struct KeyValueTable: View {
     KeyValueTable( data: DataPoint.defaultDataPoints,
                    columnTypes: [.date, .xValue],
                    columnHeaders: ["Date", "X Value"],
+                   formatString: "%0.0f",
                    minColWidth: 200 )
 }
