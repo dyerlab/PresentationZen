@@ -32,7 +32,7 @@ public struct TimeSeriesPlot: View {
         self.lineColor = lineColor
         
         if xLabel.isEmpty {
-            self.xLabel = self.ordinal == true ? "Ordinal" : "Time"
+            self.xLabel = self.ordinal == true ? "Ordinal" : "Date"
         } else {
             self.xLabel = xLabel
         }
@@ -87,14 +87,10 @@ public struct TimeSeriesPlot: View {
                                 y: .value(yLabel, item.yValue)
                             )
                             .foregroundStyle(by: .value("Category", item.category) )
-
                         }
-
                     }
-                    
                 }
             }
-            
         }
         .chartLegend( self.legendVisibility )
         .chartXAxisLabel(position: .bottom,
@@ -115,13 +111,13 @@ public struct TimeSeriesPlot: View {
 }
 
 #Preview("Date") {
-        TimeSeriesPlot(data: DataPoint.defaultDataPoints,
+    TimeSeriesPlot(data: DataPoint.defaultDataPoints.sorted(),
                        yLabel: "Y-Axis Data" )
         .padding()
 }
 
 #Preview("Ordinal"){
-    TimeSeriesPlot(data: DataPoint.defaultDataPoints,
+    TimeSeriesPlot(data: DataPoint.defaultDataPoints.sorted(),
                    yLabel: "Y-Axis Data",
                    ordinal: true )
     .padding()
@@ -129,7 +125,7 @@ public struct TimeSeriesPlot: View {
 
 
 #Preview("No Categories") {
-    TimeSeriesPlot(data: DataPoint.defaultDataPointsNoMetaData,
+    TimeSeriesPlot(data: DataPoint.defaultDataPointsNoMetaData.sorted(),
                    yLabel: "Y-Axis Data",
                    ordinal: true )
     .padding()
