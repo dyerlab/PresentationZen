@@ -43,7 +43,7 @@ public struct DLColor {
     }
     
     public static func textColor(from color : Color) -> Color {
-        let ret = color.bfColor
+        let ret = color.dlColor
             .shiftHue(by: 0.5)
             .shiftSaturation(by: -0.5)
             .shiftBrightness(by: 0.5)

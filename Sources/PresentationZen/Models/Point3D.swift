@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 public struct Point3D: Equatable {
     

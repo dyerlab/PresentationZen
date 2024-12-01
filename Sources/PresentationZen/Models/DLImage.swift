@@ -17,17 +17,17 @@ public typealias DLImage = UIImage
 public extension DLImage {
     
     
-    public var coreImage: CIImage? {
+    var coreImage: CIImage? {
         guard let cgImage = self.cgImage else { return nil }
         return CIImage(cgImage: cgImage)
     }
     
-    public var data: Data? {
+     var data: Data? {
         guard let dat = self.pngData() else { return nil }
         return dat
     }
     
-    public func resize(to size: CGSize ) -> DLImage? {
+     func resize(to size: CGSize ) -> DLImage? {
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
         format.preferredRange = .standard
@@ -38,7 +38,7 @@ public extension DLImage {
         return result
     }
     
-    public func resizeKeepingAspect(maxWidth: CGFloat = 1280) -> DLImage {
+     func resizeKeepingAspect(maxWidth: CGFloat = 1280) -> DLImage {
         let scale = maxWidth / self.size.width
         let newHeight = self.size.height * scale
         UIGraphicsBeginImageContext(CGSize(width: maxWidth, height: newHeight))
@@ -68,18 +68,18 @@ public typealias DLImage = NSImage
 
 public extension DLImage {
     
-    public var coreImage: CIImage? {
+     var coreImage: CIImage? {
         guard let tiffData = tiffRepresentation,
               let ciImage = CIImage(data: tiffData)  else { return nil }
         return ciImage
     }
     
-    public var data: Data? {
+     var data: Data? {
         guard let data = self.tiffRepresentation else { return nil }
         return data
     }
     
-    public func resize(to size: CGSize) -> DLImage? {
+     func resize(to size: CGSize) -> DLImage? {
         let frame = NSRect(x: 0, y: 0, width: size.width, height: size.height)
         guard let representation = self.bestRepresentation(for: frame, context: nil, hints: nil) else {
             return nil
@@ -91,7 +91,7 @@ public extension DLImage {
         return image
     }
     
-    public func resizeKeepingAspect(maxWidth: CGFloat = 1280) -> DLImage {
+     func resizeKeepingAspect(maxWidth: CGFloat = 1280) -> DLImage {
         let scale = maxWidth / self.size.width
         let newHeight = self.size.height * scale
         
@@ -116,7 +116,7 @@ public extension DLImage {
 
 public extension DLImage {
     
-    public func mainColors(groups k: Int) -> [Color] {
+     func mainColors(groups k: Int) -> [Color] {
         var ret = [Color]()
         
         if let img = self.resize(to: CGSize(width: 100, height: 100) ) {
@@ -132,7 +132,7 @@ public extension DLImage {
         return ret
     }
     
-    public var toPoint3D: [Point3D] {
+     var toPoint3D: [Point3D] {
         #if os(iOS)
         guard let cgImage = self.cgImage else { return [] }
         assert(cgImage.bitsPerPixel == 32, "Only support 32bit images")
