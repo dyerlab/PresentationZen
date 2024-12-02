@@ -43,11 +43,19 @@ public struct DLColor {
     }
     
     public static func textColor(from color : Color) -> Color {
+        let iColor = color.components
+        let luma = 0.299*iColor.red + 0.587*iColor.green + 0.114*iColor.blue
+        return luma > 0.5 ? Color.black : Color.white
+        
+        /*
+        
+        
         let ret = color.dlColor
             .shiftHue(by: 0.5)
             .shiftSaturation(by: -0.5)
             .shiftBrightness(by: 0.5)
         return Color(hue: ret.hue, saturation: ret.saturation, brightness: ret.brightness)
+         */
     }
     
 }

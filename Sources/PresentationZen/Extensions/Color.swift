@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension Color {
+public extension Color {
     
     var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat ) {
         var raw: [CGFloat] = []
