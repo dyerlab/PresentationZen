@@ -117,18 +117,29 @@ public extension Array where Element == DataPoint {
         return ret
     }
     
-    
-    /// Convert raw data to counts of points in bins
-    ///
-    /// This takes the raw data and partitions it into bins on the x-value and then changes the y-value
-    ///   to the count so that they can be plot as a stack of balls.
-    ///
-    /// - Parameters:
-    ///     - minSize: A ``Double`` indicating the width of the bins.
-    ///     - xMin: The minimum value on the x-axis (where to start) as a ``Double``
-    
-    
-    
+    var collapseByYear: [DataPoint] {
+        
+        var pts = Set<DataPoint>()
+        
+        for item in self {
+            
+            if let date = item.date {
+               let year = date.get( .year )
+                let newPt: DataPoint
+                
+                if let pt = pts.first( where: { $0.xValue == Double( year ) } ) {
+                    newPt = DataPoint(x: Double(year), y: pt.yValue + item.yValue)
+                    pts.remove( pt )
+                } else {
+                    newPt = DataPoint(x: Double(year), y: item.yValue )
+                }
+                pts.insert( newPt )
+            }
+            
+            
+        }
+        return Array( pts ).sorted()
+    }
     
 }
 

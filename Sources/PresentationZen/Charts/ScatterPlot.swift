@@ -36,6 +36,7 @@ public struct ScatterPlot: View {
                         .annotation {
                             Text("\(item.label )")
                                 .font( .footnote )
+                               // .rotationEffect( Angle(degrees: -30), anchor: .bottomLeading)
                         }
                     } else {
                         PointMark(
@@ -77,27 +78,31 @@ public struct ScatterPlot: View {
 }
 
 #Preview {
-    VStack(spacing: 25) {
-        ScatterPlot( data: DataPoint.defaultDataPoints,
-                     xLabel: "Default X-Axis Label",
-                     yLabel: "Default Y-Axis Label" )
+    ScrollView {
         
-        ScatterPlot( data: DataPoint.defaultDataPoints,
-                     xLabel: "Default X-Axis Label",
-                     yLabel: "Default Y-Axis Label",
-                     showLabel: true )
         
-        ScatterPlot( data: DataPoint.defaultDataPoints,
-                     xLabel: "Default X-Axis Label",
-                     yLabel: "Default Y-Axis Label",
-                     showGroups: true )
-        
-        ScatterPlot( data: DataPoint.defaultDataPoints,
-                     xLabel: "Default X-Axis Label",
-                     yLabel: "Default Y-Axis Label",
-                     showLabel: true,
-                     showGroups: true  )
+        VStack(spacing: 25) {
+            ScatterPlot( data: DataPoint.defaultDataPoints,
+                         xLabel: "Default X-Axis Label",
+                         yLabel: "Default Y-Axis Label" )
+            
+            ScatterPlot( data: DataPoint.defaultDataPoints,
+                         xLabel: "Default X-Axis Label",
+                         yLabel: "Default Y-Axis Label",
+                         showLabel: true )
+            
+            ScatterPlot( data: DataPoint.defaultDataPoints,
+                         xLabel: "Default X-Axis Label",
+                         yLabel: "Default Y-Axis Label",
+                         showGroups: true )
+            
+            ScatterPlot( data: DataPoint.defaultDataPoints,
+                         xLabel: "Default X-Axis Label",
+                         yLabel: "Default Y-Axis Label",
+                         showLabel: true,
+                         showGroups: true  )
+        }
+        .frame( minHeight: 800 )
     }
-    .frame( minHeight: 800 )
     .padding()
 }

@@ -56,7 +56,7 @@ func kMeansClustering( points: [Point3D], k: Int ) -> [PointCluster] {
             }
         }
         if converged {
-            print("Converged. Took \(i) iterations")
+            //print("Converged. Took \(i) iterations")
             break;
         }
     }
