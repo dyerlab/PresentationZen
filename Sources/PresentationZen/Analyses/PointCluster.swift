@@ -17,7 +17,6 @@ public class PointCluster {
         self.center = center
     }
     
-    
     public func estimateCenter() -> Point3D {
         if points.isEmpty {
             return Point3D.zero
