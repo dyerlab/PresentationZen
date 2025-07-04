@@ -33,7 +33,7 @@ func kMeansClustering( points: [Point3D], k: Int ) -> [PointCluster] {
     clusters.forEach{ $0.updateCenter() }
     
     // Iterate
-    for i in 0 ..< 10 {
+    for _ in 0 ..< 10 {
         
         // reassign points
         clusters.forEach {

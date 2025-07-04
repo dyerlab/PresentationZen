@@ -43,7 +43,7 @@ public struct Point3D: Equatable {
 
 public extension Point3D {
     
-    static let zero = Point3D(0, 0, 0)
+    nonisolated(unsafe) static let zero = Point3D(0, 0, 0)
     
     static func +(lhs : Point3D, rhs : Point3D) -> Point3D {
         return Point3D(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
