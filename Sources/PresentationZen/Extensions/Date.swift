@@ -17,6 +17,11 @@ public extension Date {
     func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
         return calendar.component(component, from: self)
     }
-    
-    
+
+    static func mdy(_ text: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter.date(from: text)
+    }
+
 }

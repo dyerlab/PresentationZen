@@ -117,6 +117,38 @@ public extension Array where Element == DataPoint {
         return ret
     }
     
+    /// Average of `yValue` across all points.
+    ///
+    /// Returns `.nan` if the array is empty.
+    var yMean: Double {
+        guard !self.isEmpty else { return .nan }
+        return self.map(\.yValue).reduce(0, +) / Double(self.count)
+    }
+
+    /// Creates a frequency distribution for integer-bucketed `yValue` data.
+    ///
+    /// Rounds each `yValue` to the nearest integer, counts occurrences within the
+    /// given range, and returns one ``DataPoint`` per bucket with `category` as
+    /// the bucket label and `yValue` as the count.
+    ///
+    /// - Parameter range: The closed integer range of buckets (e.g. `1...5` for Likert).
+    /// - Returns: An array of ``DataPoint`` with one entry per integer in the range.
+    func frequencyDistribution(range: ClosedRange<Int>) -> [DataPoint] {
+        var counts = [Int: Int]()
+        for i in range {
+            counts[i] = 0
+        }
+        for item in self {
+            let bucket = Int(item.yValue.rounded())
+            if range.contains(bucket) {
+                counts[bucket, default: 0] += 1
+            }
+        }
+        return range.map { bucket in
+            DataPoint(category: "\(bucket)", value: Double(counts[bucket] ?? 0))
+        }
+    }
+
     var collapseByYear: [DataPoint] {
         
         var pts = Set<DataPoint>()

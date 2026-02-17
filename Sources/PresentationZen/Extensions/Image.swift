@@ -8,17 +8,25 @@
 import Foundation
 import SwiftUI
 
-extension Image {
-    
+public extension Image {
+
     func centerCropped() -> some View {
-            GeometryReader { geo in
-                self
+        GeometryReader { geo in
+            self
                 .resizable()
                 .scaledToFill()
                 .frame(width: geo.size.width, height: geo.size.height)
                 .clipped()
                 .contentShape(Rectangle())
-            }
         }
-    
+    }
+
+    init(dlImage: DLImage) {
+        #if os(iOS)
+        self.init(uiImage: dlImage)
+        #elseif os(macOS)
+        self.init(nsImage: dlImage)
+        #endif
+    }
+
 }
