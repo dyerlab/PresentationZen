@@ -18,72 +18,84 @@ public struct KeyValueTable: View {
     public var formatString: String
     public var minColWidth: Double
     
+    private var inScrollView: Bool
+    
     public init( data: [DataPoint],
                  columnTypes: [DataColumnType],
                  columnHeaders: [String],
                  formatString: String = "%.4f",
-                 minColWidth: Double = 150 ) {
+                 minColWidth: Double = 150,
+                 inScrollView: Bool = true ) {
         self.data = data
         self.columnTypes = columnTypes
         self.columnHeaders = columnHeaders
         self.formatString = formatString
         self.minColWidth = minColWidth
+        self.inScrollView = inScrollView
     }
     
     var columns: [GridItem] {
         var ret = [GridItem]()
-        for _ in 0 ..< columnTypes.count {
-            ret.append( GridItem(.flexible(minimum: minColWidth, maximum: .infinity) ) )
+        for _ in 0 ..< columnTypes.count {    
+                ret.append( GridItem(.flexible(minimum: minColWidth, maximum: .infinity) ) )
         }
         return ret
     }
     
-    public var body: some View {
-        
-        
-        ScrollView( [.horizontal, .vertical]) {
-            LazyVGrid( columns: self.columns, content: {
-                ForEach( 0..<columnTypes.count, id: \.self ) { idx in
+    
+    var tableContent: some View {
+        LazyVGrid( columns: self.columns, content: {
+            ForEach( 0..<columnTypes.count, id: \.self ) { idx in
                     Text("\(columnHeaders[idx])")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(alignment: .leading)
                         .font(.headline)
-                }
-                ForEach( data ) { item in
-                    ForEach( columnTypes, id: \.self  ) { type in
+            }
+            ForEach( data ) { item in
+                ForEach( columnTypes, id: \.self  ) { type in
+                    
+                    switch( type ) {
+                    case .grouping:
+                        Text("\(item.grouping)")
+                            .frame(alignment: .leading)
+                            .lineLimit(1)
+                    case .label:
+                        Text("\(item.label)")
+                            .frame(alignment: .leading)
+                            .lineLimit(1)
+                    case .category:
+                        Text("\(item.category)")
+                            .frame(alignment: .leading)
+                            .lineLimit(1)
+                    case .xValue:
+                        Text("\(item.xValue, specifier: formatString)")
+                            .frame(alignment: .leading)
+                            .lineLimit(1)
+                    case .yValue:
+                        Text("\(item.yValue, specifier: formatString)")
+                            .frame(alignment: .leading)
+                            .lineLimit(1)
+                    case .date:
+                        Text(item.date ?? .now, style: .date )
+                            .frame(minWidth: 150, maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(1)
                         
-                        switch( type ) {
-                        case .grouping:
-                            Text("\(item.grouping)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                        case .label:
-                            Text("\(item.label)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                        case .category:
-                            Text("\(item.category)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                        case .xValue:
-                            Text("\(item.xValue, specifier: formatString)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                        case .yValue:
-                            Text("\(item.yValue, specifier: formatString)")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                        case .date:
-                            Text(item.date ?? .now, style: .date )
-                                .frame(minWidth: 150, maxWidth: .infinity, alignment: .leading)
-                                .lineLimit(1)
-                            
-                        }
                     }
                 }
-            })
-        }
+            }
+        })
     }
     
+    
+    public var body: some View {
+            if inScrollView {
+                ScrollView( [.horizontal, .vertical]) {
+                    tableContent
+                }
+            } else {
+                tableContent
+                    .padding()
+            }
+    }
 }
 
 #Preview("Full") {
@@ -105,4 +117,23 @@ public struct KeyValueTable: View {
                    columnHeaders: ["Date", "X Value"],
                    formatString: "%0.0f",
                    minColWidth: 200 )
+}
+
+
+#Preview("No Scrollview") {
+    KeyValueTable( data: DataPoint.defaultDataPoints,
+                   columnTypes: [.date, .xValue],
+                   columnHeaders: ["Date", "X Value"],
+                   formatString: "%0.0f",
+                   minColWidth: 200,
+                   inScrollView: false )
+}
+
+#Preview("No Scrollview & Small Width") {
+    KeyValueTable( data: DataPoint.defaultDataPoints,
+                   columnTypes: [.grouping, .label, .category, .xValue, .yValue],
+                   columnHeaders: ["Grouping Label","Label","Category Label","X Value","Y Value"],
+                   formatString: "%0.0f",
+                   minColWidth: 100,
+                   inScrollView: false)
 }
