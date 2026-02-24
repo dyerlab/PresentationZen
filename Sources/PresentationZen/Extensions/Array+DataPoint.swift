@@ -1,5 +1,15 @@
+//                      _                 _       _
+//                   __| |_   _  ___ _ __| | __ _| |__
+//                  / _` | | | |/ _ \ '__| |/ _` | '_ \
+//                 | (_| | |_| |  __/ |  | | (_| | |_) |
+//                  \__,_|\__, |\___|_|  |_|\__,_|_.__/
+//                        |_ _/
 //
-//  File.swift
+//         Making Population Genetic Software That Doesn't Suck
+//
+//  Copyright (c) 2021-2026 Administravia LLC.  All Rights Reserved.
+//
+//  Array+DataPoint.swift
 //
 //
 //  Created by Rodney Dyer on 2024-02-16.
@@ -9,16 +19,7 @@ import Foundation
 
 
 public extension Array where Element == DataPoint {
-    
-    var isEmpty: Bool {
-        if self.count == 0 {
-            return true
-        }
 
-        return self.compactMap( { $0.yValue} ).sum() == 0.0
-    }
-    
-    
     /// Minimum values
     ///
     /// - Returns: minimum ``DataPoint`` values or ``Double.infinity``
@@ -99,19 +100,28 @@ public extension Array where Element == DataPoint {
         
         if let dataMin = values.min(),
            let dataMax = values.max() {
+            let span = dataMax - dataMin
+
+            guard span > 0 else {
+                // All values identical — single bin with full count
+                ret.append( DataPoint(x: dataMin - 1, y: 0) )
+                ret.append( DataPoint(x: dataMin, y: Double(values.count)) )
+                ret.append( DataPoint(x: dataMin + 1, y: 0) )
+                return ret
+            }
+
             var current = dataMin
-            let span = dataMax - current
             let binSize = span / Double( numBins )
-            
+
             ret.append( DataPoint(x: (current - binSize), y: 0) )
-            
+
             while current <= dataMax {
                 let ct = values.filter( { ($0 >= current) && ($0 < current + binSize ) } ).count
                 ret.append( DataPoint( x: current, y: Double( ct ) ) )
                 current += binSize
             }
             ret.append( DataPoint(x: (dataMax + binSize), y: 0) )
-            
+
         }
         
         return ret

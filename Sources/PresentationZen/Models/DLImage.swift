@@ -1,3 +1,13 @@
+//                      _                 _       _
+//                   __| |_   _  ___ _ __| | __ _| |__
+//                  / _` | | | |/ _ \ '__| |/ _` | '_ \
+//                 | (_| | |_| |  __/ |  | | (_| | |_) |
+//                  \__,_|\__, |\___|_|  |_|\__,_|_.__/
+//                        |_ _/
+//
+//         Making Population Genetic Software That Doesn't Suck
+//
+//  Copyright (c) 2021-2026 Administravia LLC.  All Rights Reserved.
 //
 //  DLImage.swift
 //  BackflowStudio
@@ -45,7 +55,7 @@ public extension DLImage {
         self.draw(in: CGRect(x: 0, y: 0, width: maxWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return newImage!
+        return newImage ?? self
     }
     
 }
@@ -166,9 +176,9 @@ public extension DLImage {
                 b = pixel & 255
             }
             
-            ret.append( Point3D( CGFloat(r)/256.0,
-                                 CGFloat(g)/256.0,
-                                 CGFloat(b)/256.0) )
+            ret.append( Point3D( CGFloat(r)/255.0,
+                                 CGFloat(g)/255.0,
+                                 CGFloat(b)/255.0) )
         }
         return ret
     }

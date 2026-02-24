@@ -1,3 +1,13 @@
+//                      _                 _       _
+//                   __| |_   _  ___ _ __| | __ _| |__
+//                  / _` | | | |/ _ \ '__| |/ _` | '_ \
+//                 | (_| | |_| |  __/ |  | | (_| | |_) |
+//                  \__,_|\__, |\___|_|  |_|\__,_|_.__/
+//                        |_ _/
+//
+//         Making Population Genetic Software That Doesn't Suck
+//
+//  Copyright (c) 2021-2026 Administravia LLC.  All Rights Reserved.
 //
 //  Color.swift
 //  PresentationZen
@@ -19,10 +29,13 @@ public extension Color {
         raw = NSColor( self ).cgColor.components ?? []
 #endif
         if raw.count == 4 {
-            return (raw[0],raw[1],raw[2],raw[3])
+            return (raw[0], raw[1], raw[2], raw[3])
+        } else if raw.count == 2 {
+            // Grayscale color space: components are (gray, alpha)
+            return (raw[0], raw[0], raw[0], raw[1])
         }
-        
-        return (0,0,0,0)
+
+        return (0, 0, 0, 0)
     }
     
     
