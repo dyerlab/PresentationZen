@@ -22,7 +22,7 @@ public extension Array where Element == DataPoint {
 
     /// Minimum values
     ///
-    /// - Returns: minimum ``DataPoint`` values or ``Double.infinity``
+    /// - Returns: minimum ``DataPoint`` values or Double.infinity
     var minimum: DataPoint {
         var ret = DataPoint(x: Double.infinity,
                             y: Double.infinity )
@@ -39,7 +39,7 @@ public extension Array where Element == DataPoint {
     
     /// Maximum values
     ///
-    /// - Returns: ``DataPoint`` with maximum values in array or ``-Double.infinity``
+    /// - Returns: ``DataPoint`` with maximum values in array or Double.infinity
     var maximum: DataPoint {
         var ret = DataPoint(x: -Double.infinity,
                             y: -Double.infinity )
