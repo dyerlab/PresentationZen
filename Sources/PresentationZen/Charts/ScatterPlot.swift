@@ -36,37 +36,20 @@ public struct ScatterPlot: View {
     public var body: some View {
         Chart {
             ForEach( data, id: \.self) { item in
-                if showLabel {
-                    if showGroups {
-                        PointMark(
-                            x: .value("X Value", item.xValue  ),
-                            y: .value("Y Value", item.yValue ) )
-                        .foregroundStyle(by: .value( "Group",
-                                                     item.grouping ) )
-                        .annotation {
-                            Text("\(item.label )")
-                                .font( .footnote )
-                               // .rotationEffect( Angle(degrees: -30), anchor: .bottomLeading)
-                        }
-                    } else {
-                        PointMark(
-                            x: .value("X Value", item.xValue  ),
-                            y: .value("Y Value", item.yValue ) )
-                        .annotation {
-                            Text("\(item.label )")
-                                .font( .footnote )
-                        }
-                    }
-                } else {
-                    if showGroups {
-                        PointMark(
-                            x: .value("X Value", item.xValue  ),
-                            y: .value("Y Value", item.yValue ) )
-                        .foregroundStyle(by: .value("Group", showGroups ? item.grouping : "" ) )
-                    } else {
-                        PointMark(
-                            x: .value("X Value", item.xValue  ),
-                            y: .value("Y Value", item.yValue ) )
+                // Keep a single PointMark chain so the @ChartContentBuilder
+                // never has to produce a _ConditionalContent (whose ChartContent
+                // conformance is only available on iOS 27+). The group encoding is
+                // selected with a ternary and the label moves into the annotation's
+                // SwiftUI @ViewBuilder, where `if` is allowed.
+                PointMark(
+                    x: .value("X Value", item.xValue  ),
+                    y: .value("Y Value", item.yValue ) )
+                .foregroundStyle(by: .value( "Group",
+                                             showGroups ? item.grouping : "" ) )
+                .annotation {
+                    if showLabel {
+                        Text("\(item.label )")
+                            .font( .footnote )
                     }
                 }
             }
@@ -84,6 +67,7 @@ public struct ScatterPlot: View {
                 .font(.title3)
         } )
         .chartLegend(position: .top)
+        .chartLegend(showGroups ? .visible : .hidden)
     }
 }
 
